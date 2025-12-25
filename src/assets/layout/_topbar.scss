@@ -6,12 +6,9 @@
     z-index: 997;
     left: 0;
     top: 0;
-    width: 100%; // 👈 resta l’amplada del sidebar
+    width: 100%;
     padding: 0 2rem;
     background-color: var(--surface-card);
-    transition:
-        margin-left 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99),
-        width 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
     display: flex;
     align-items: center;
 
@@ -19,15 +16,15 @@
         width: 20rem;
         display: flex;
         align-items: center;
+        transition: margin-left 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
 
         .topbar-custom-content {
-            margin-left: auto; // O la posición que prefieras
+            margin-left: auto;
             display: flex;
             align-items: center;
             gap: 1rem;
 
             .p-inputtext {
-                // Estilos específicos para que todos los inputs del topbar se vean igual
                 border-radius: 20px;
                 width: 250px;
             }
@@ -112,12 +109,44 @@
     }
 }
 
+@media (min-width: 992px) {
+    // Sobreescribim el comportament per defecte del layout
+    .layout-wrapper {
+        &.layout-static {
+            // El topbar sempre es manté fix al 100%
+            .layout-topbar {
+                width: 100% !important;
+                margin-left: 0 !important;
+            }
+
+            // El contingut dins del topbar es desplaça
+            .layout-topbar-logo-container {
+                margin-left: 22rem;
+            }
+
+            &.layout-static-inactive {
+                // El topbar segueix fix al 100%
+                .layout-topbar {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                }
+
+                // Només el contingut es desplaça
+                .layout-topbar-logo-container {
+                    margin-left: 4.5rem;
+                }
+            }
+        }
+    }
+}
+
 @media (max-width: 991px) {
     .layout-topbar {
         padding: 0 2rem;
 
         .layout-topbar-logo-container {
             width: auto;
+            margin-left: 0 !important; // En mobile sempre a l'esquerra
         }
 
         .layout-menu-button {

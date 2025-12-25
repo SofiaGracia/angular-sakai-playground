@@ -9,7 +9,7 @@ import { LayoutService } from '../service/layout.service';
     selector: 'app-topbar',
     standalone: true,
     imports: [RouterModule, CommonModule, StyleClassModule],
-    template: ` <div class="layout-topbar">
+    template: ` <div class="layout-topbar" [class.layout-sidebar-active]="layoutService.isMenuActive()" [class.layout-sidebar-inactive]="!layoutService.isMenuActive()">
         <div class="layout-topbar-logo-container">
             <div class="topbar-custom-content">
                 <ng-container *ngTemplateOutlet="layoutService.topbarContent()"></ng-container>

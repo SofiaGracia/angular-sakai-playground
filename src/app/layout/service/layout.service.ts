@@ -78,6 +78,17 @@ export class LayoutService {
 
     showTopbar = signal<boolean>(false);
 
+    // Nou computed per determinar si el menú està actiu (obert)
+    // En desktop: el menú està actiu si NO està inactiu (!staticMenuDesktopInactive)
+    // En mobile: segueix utilitzant isSidebarActive
+    isMenuActive = computed(() => {
+        const state = this.layoutState();
+        if (this.isDesktop()) {
+            return !state.staticMenuDesktopInactive;
+        }
+        return state.overlayMenuActive || state.staticMenuMobileActive;
+    });
+
     // Nuevo: Signal para almacenar el contenido extra del topbar
     topbarContent = signal<TemplateRef<any> | null>(null);
 
