@@ -19,7 +19,7 @@ import { ButtonModule } from 'primeng/button';
                     [label]="btn.label"
                     [icon]="btn.icon"
                     [severity]="btn.btnSeverity"
-                    [disabled]="btn.disabled"
+                    [disabled]="btn.label == 'saveProduct' && ngControl.invalid"
                     (onClick)="btn.action()"> </p-button>
                 }
             }

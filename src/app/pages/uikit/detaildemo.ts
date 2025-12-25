@@ -63,8 +63,8 @@ export class DetailDemo implements AfterViewInit, OnDestroy {
         },
         {
             label: 'saveProduct',
-            visible: false,
-            disabled: false,
+            visible: true,
+            disabled: true,
             btnSeverity: 'success',
             icon: 'pi-save',
             action: () => this.saveProduct()
