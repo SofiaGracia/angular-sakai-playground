@@ -3,19 +3,21 @@ import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
-import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+    imports: [RouterModule, CommonModule, StyleClassModule],
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
+            <div class="topbar-custom-content">
+                <ng-container *ngTemplateOutlet="layoutService.topbarContent()"></ng-container>
+            </div>
             <!-- <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
                 <i class="pi pi-bars"></i>
             </button> -->
-            <a class="layout-topbar-logo" routerLink="/">
+            <!-- <a class="layout-topbar-logo" routerLink="/">
                 <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         fill-rule="evenodd"
@@ -34,10 +36,10 @@ import { LayoutService } from '../service/layout.service';
                     </g>
                 </svg>
                 <span>SAKAI</span>
-            </a>
+            </a> -->
         </div>
 
-        <div class="layout-topbar-actions">
+        <!-- <div class="layout-topbar-actions">
             <div class="layout-config-menu">
                 <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
                     <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
@@ -78,7 +80,7 @@ import { LayoutService } from '../service/layout.service';
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>`
 })
 export class AppTopbar {

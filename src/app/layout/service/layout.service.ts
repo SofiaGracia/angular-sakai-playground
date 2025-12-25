@@ -1,4 +1,4 @@
-import { Injectable, effect, signal, computed } from '@angular/core';
+import { Injectable, effect, signal, computed, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface layoutConfig {
@@ -76,6 +76,11 @@ export class LayoutService {
 
     transitionComplete = signal<boolean>(false);
 
+    showTopbar = signal<boolean>(false);
+
+    // Nuevo: Signal para almacenar el contenido extra del topbar
+    topbarContent = signal<TemplateRef<any> | null>(null);
+
     private initialized = false;
 
     constructor() {
@@ -96,6 +101,10 @@ export class LayoutService {
 
             this.handleDarkModeTransition(config);
         });
+    }
+
+    setTopbarContent(template: TemplateRef<any> | null) {
+        this.topbarContent.set(template);
     }
 
     private handleDarkModeTransition(config: layoutConfig): void {

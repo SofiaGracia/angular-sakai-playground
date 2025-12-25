@@ -15,6 +15,11 @@
                 padding-left: 2rem;
             }
 
+            .layout-topbar {
+                width: 100%;
+                margin-left: 0;
+            }
+
             .layout-sidebar {
                 transform: translateX(-100%);
                 left: 0;
@@ -44,6 +49,12 @@
                 margin-left: 22rem;
             }
 
+            // Cuando el menú es estático y está abierto
+            .layout-topbar {
+                width: calc(100% - 22rem);
+                margin-left: 22rem;
+            }
+
             &.layout-static-inactive {
                 .layout-sidebar {
                     transform: translateX(0) !important;
@@ -51,6 +62,11 @@
                     min-width: 4.5rem;
                     max-width: 4.5rem;
                     left: 0;
+                }
+
+                .layout-topbar {
+                    width: calc(100% - 4.5rem);
+                    margin-left: 4.5rem;
                 }
 
                 .layout-main-container {

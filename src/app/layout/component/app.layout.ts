@@ -1,18 +1,21 @@
 import { Component, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { AppTopbar } from './app.topbar';
 import { AppSidebar } from './app.sidebar';
 import { AppFooter } from './app.footer';
 import { LayoutService } from '../service/layout.service';
+import { DetailDemo } from '@/pages/uikit/detaildemo';
 
 @Component({
     selector: 'app-layout',
     standalone: true,
     imports: [CommonModule, AppTopbar, AppSidebar, RouterModule, AppFooter],
     template: `<div class="layout-wrapper" [ngClass]="containerClass">
-        <app-topbar></app-topbar>
+        @if (layoutService.showTopbar()) {
+            <app-topbar></app-topbar>
+        }
         <app-sidebar></app-sidebar>
         <div class="layout-main-container">
             <div class="layout-main">
@@ -35,7 +38,8 @@ export class AppLayout {
     constructor(
         public layoutService: LayoutService,
         public renderer: Renderer2,
-        public router: Router
+        public router: Router,
+        private route: ActivatedRoute
     ) {
         this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
             if (!this.menuOutsideClickListener) {
@@ -53,7 +57,20 @@ export class AppLayout {
 
         this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
             this.hideMenu();
+
+            const activeRoute = this.getDeepestChild(this.route);
+            const show = activeRoute.snapshot.data['showTopbar'] === true;
+            this.layoutService.showTopbar.set(show);
         });
+    }
+
+    //Detecta el component carregat (NO la URL)
+    private getDeepestChild(route: ActivatedRoute): ActivatedRoute {
+        let current = route;
+        while (current.firstChild) {
+            current = current.firstChild;
+        }
+        return current;
     }
 
     isOutsideClicked(event: MouseEvent) {
