@@ -1,4 +1,7 @@
 # Sakai19
+# This project is based on the Sakai Angular template by PrimeFaces and is used for learning and experimentation purposes.
+
+
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
 
